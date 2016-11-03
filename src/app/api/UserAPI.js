@@ -7,9 +7,9 @@ class UserAPI {
   signup(username, email, password, call){
     http({
       type: "POST",
-      url: "/auth/register",
+      url: "/auth/register/",
       data: JSON.stringify({
-        username, username,
+        username: username,
         email: email,
         password: password
       }),
@@ -23,10 +23,10 @@ class UserAPI {
         if(json.token){
           call(null, json.token);
         }else{
-          call("Invalid", null);
+          call(json, null);
         }
       },
-      onError: (err)=>call("Error: "+err, null)
+      onError: (err)=>call(JSON.parse(err), null)
     });
   }
 
@@ -34,8 +34,29 @@ class UserAPI {
 
   }
 
-  login(email, password, call){
+  login(username, password, call){
+    http({
+      type: "POST",
+      url: "/auth/login/",
+      data: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      headers: {
+        "Content-Type": "Application/json;charset=UTF-8"
+      },
+      onSuccess: (data)=>{
+        console.log(data);
+        var json = JSON.parse(data);
 
+        if(json.auth_token){
+          call(null, json.token);
+        }else{
+          call(json, null);
+        }
+      },
+      onError: (err)=>call(JSON.parse(err), null)
+    });
   }
 
 }

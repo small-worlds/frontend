@@ -11,9 +11,9 @@ class UserActions {
   }
 
 
-  login(email, password){
+  login(username, password){
 
-    UserAPI.login(email, password, (err, data)=>{
+    UserAPI.login(username, password, (err, data)=>{
 
       if(err){
         AppDispatcher.dispatch({
@@ -23,7 +23,7 @@ class UserActions {
       }else{
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_LOGIN,
-          data: data
+          token: data
         });
       }
     });

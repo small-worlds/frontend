@@ -1,4 +1,4 @@
-
+import UserStore from "../stores/UserStore";
 var serverUrl = "https://api.smallworlds.io";
 
 
@@ -44,6 +44,10 @@ function http(attr){
         request.setRequestHeader(key, attr.headers[key]);
       }
     }
+  }
+
+  if(UserStore.isLoggedIn()){
+    request.setRequestHeader("Authorization", "Token " + UserStore.getToken());
   }
 
   var data = null;

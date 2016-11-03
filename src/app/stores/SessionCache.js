@@ -8,7 +8,7 @@ export default class SessionCache {
   }
 
   set(key, value){
-    sessionStorage-setItem(this.prefix + "_" + key, value);
+    sessionStorage.setItem(this.prefix + "_" + key, value);
   }
 
   get(key){
@@ -16,7 +16,7 @@ export default class SessionCache {
   }
 
   contains(key){
-    return typeof sessionStorage.getItem(this.prefix + "_" + key) !== "undefined";
+    return sessionStorage.getItem(this.prefix + "_" + key) !== null;
   }
 
   remove(key){

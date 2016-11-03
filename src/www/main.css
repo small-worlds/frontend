@@ -96,7 +96,7 @@ body {
 
 @media screen and (min-width: 1024px) {
   .articlecard {
-    width: calc(33% - 2em);
+    width: calc(33.3% - 2em);
   }
 
   .articlecard:nth-of-type(2n+1) {
@@ -107,7 +107,6 @@ body {
     clear: left;
   }
 }
-
 
 @media screen and (min-width: 2048px) {
   .articlecard {

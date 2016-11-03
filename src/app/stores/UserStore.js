@@ -16,26 +16,41 @@ class UserStore extends EventEmitter {
     var data;
     switch(action.actionType){
 
+      case UserConstants.USER_SIGNUP:
+      this.emitChange({type: UserConstants.USER_SIGNUP, data: action.data});
+      break;
+      case UserConstants.USER_SIGNUP_FAILED:
+      this.emitChange({type: UserConstants.USER_SIGNUP_FAILED, data: action.err});
+      break;
       case UserConstants.USER_LOGIN:
-      this.cache.set("data", action.data);
-      this.emitChange();
+      this.cache.set("token", action.token);
+      this.emitChange({type: UserConstants.USER_LOGIN, data: ""});
+      break;
+      case UserConstants.USER_LOGIN_FAILED:
+      this.emitChange({type: UserConstants.USER_LOGIN_FAILED, data: action.err});
       break;
       case UserConstants.USER_LOGOUT:
       this.cache.remove("data");
+      this.cache.remote("token");
+      this.emitChange();
       break;
     }
   }
 
   isLoggedIn(){
-    return this.cache.contains("data");
+    return this.cache.contains("token");
+  }
+
+  getToken(){
+    return this.cache.get("token");
   }
 
   getUserData(){
     return this.cache.get("data");
   }
 
-  emitChange(){
-    this.emit(CHANGE_EVENT);
+  emitChange(e){
+    this.emit(CHANGE_EVENT, e);
   }
 
   addChangeListener(call){

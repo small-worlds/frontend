@@ -9,9 +9,6 @@ export default class SWELoginPage extends Component {
     return (
       <SWEGrid>
         <SWELoginCard/>
-        <SWELoginCard/>
-        <SWELoginCard/>
-        <SWELoginCard/>
       </SWEGrid>
     );
   }

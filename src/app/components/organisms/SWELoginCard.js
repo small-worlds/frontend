@@ -1,14 +1,53 @@
-import React, {Component} from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import React, {Component} from "react";
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from "material-ui/Card";
+import TextField from "material-ui/TextField";
+import FlatButton from "material-ui/FlatButton";
+import Snackbar from "material-ui/Snackbar";
 import UserActions from "../../actions/UserActions";
+import UserStore from "../../stores/UserStore";
+import UserConstants from "../../constants/UserConstants";
 
 export default class SWELoginCard extends Component {
 
   state = {
     showSignup: false,
-    form_rpassword_error: ""
+    form_rpassword_error: "",
+    snackMessage: "",
+    hasSnackMessage: false
+  }
+
+  onData(e){
+
+    switch(e.type){
+      case UserConstants.USER_SIGNUP_FAILED:
+      case UserConstants.USER_LOGIN_FAILED:
+      this.setState({
+        form_rpassword_error: e.data.non_field_errors,
+        snackMessage: e.data.non_field_errors,
+        hasSnackMessage: true
+      });
+      break;
+      case UserConstants.USER_SIGNUP:
+      this.setState({
+        snackMessage: "Signed up, check your inbox for the Activation Email!",
+        hasSnackMessage: true
+      });
+      break;
+      case UserConstants.USER_LOGIN:
+      this.setState({
+        snackMessage: "Logged in!",
+        hasSnackMessage: true
+      });
+      break;
+    }
+  }
+
+  componentWillMount(){
+    UserStore.addChangeListener((e)=>this.onData(e));
+  }
+
+  componentWillUnmount(){
+    UserStore.removeChangeListener((e)=>this.onData(e));
   }
 
   toggleView(){
@@ -30,11 +69,14 @@ export default class SWELoginCard extends Component {
   }
 
   login(){
-    if(this.state.form_email.length === 0 || this.state.form_password.length === 0){
+
+    this.setState({form_rpassword_error: ""});
+
+    if(this.state.form_username.length === 0 || this.state.form_password.length === 0){
       // Focus on empty element
       return;
     }
-    UserActions.login(this.state.form_email, this.state.form_password);
+    UserActions.login(this.state.form_username, this.state.form_password);
   }
 
   signup(){
@@ -80,7 +122,7 @@ export default class SWELoginCard extends Component {
                   <br/>
                   <TextField
                     id="username"
-                    hintText="CMDR Name"
+                    hintText="Username"
                     />
                   <br/>
                   <TextField
@@ -102,13 +144,14 @@ export default class SWELoginCard extends Component {
               (
                 <div>
                   <TextField
-                    id="email"
-                    hintText="Email"
+                    id="username"
+                    hintText="Username"
                     />
                   <br/>
                   <TextField
                     id="password"
                     hintText="Password"
+                    errorText={this.state.form_rpassword_error}
                     type="password"
                     />
                 </div>
@@ -127,6 +170,11 @@ export default class SWELoginCard extends Component {
               />
           </CardActions>
         </form>
+        <Snackbar
+         open={this.state.hasSnackMessage}
+         message={this.state.snackMessage}
+         autoHideDuration={2000}
+       />
       </Card>
     );
   }
