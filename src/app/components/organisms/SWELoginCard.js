@@ -9,6 +9,11 @@ import UserConstants from "../../constants/UserConstants";
 
 export default class SWELoginCard extends Component {
 
+  constructor(){
+    super();
+    this.valid = true;
+  }
+
   state = {
     showSignup: false,
     form_rpassword_error: "",
@@ -16,7 +21,11 @@ export default class SWELoginCard extends Component {
     hasSnackMessage: false
   }
 
-  onData(e){
+  onData = (e)=>{
+
+    if(!this.valid){
+      return;
+    }
 
     switch(e.type){
       case UserConstants.USER_SIGNUP_FAILED:
@@ -30,7 +39,8 @@ export default class SWELoginCard extends Component {
       case UserConstants.USER_SIGNUP:
       this.setState({
         snackMessage: "Signed up, check your inbox for the Activation Email!",
-        hasSnackMessage: true
+        hasSnackMessage: true,
+        showSignup: false
       });
       break;
       case UserConstants.USER_LOGIN:
@@ -43,11 +53,12 @@ export default class SWELoginCard extends Component {
   }
 
   componentWillMount(){
-    UserStore.addChangeListener((e)=>this.onData(e));
+    this.valid = false;
+    UserStore.addChangeListener(this.onData);
   }
 
   componentWillUnmount(){
-    UserStore.removeChangeListener((e)=>this.onData(e));
+    UserStore.removeChangeListener(this.onData);
   }
 
   toggleView(){

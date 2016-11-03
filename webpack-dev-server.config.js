@@ -19,6 +19,8 @@ const config = {
     inline: true,
     port: 3000, // Port Number
     host: 'localhost', // Change to '0.0.0.0' for external facing server
+    outputPath: buildPath,
+    historyApiFallback: true
   },
   devtool: 'eval',
   output: {

@@ -5,7 +5,7 @@ import ActionHome from "material-ui/svg-icons/action/home";
 import ActionFlight from "material-ui/svg-icons/action/flight-takeoff";
 import DeviceAirplaneModeActive from "material-ui/svg-icons/device/airplanemode-active";
 import DeviceAirplaneModeInactive from "material-ui/svg-icons/device/airplanemode-inactive";
-
+import { browserHistory } from "react-router";
 
 const style = {
   marginLeft: "auto",
@@ -25,7 +25,14 @@ export default class SWEBottomNavigation extends Component {
   }
 
   select(index){
-    this.setState({selectedIndex: index})
+    this.setState({selectedIndex: index});
+    switch(index){
+      case 0:
+      browserHistory.push("/");
+      break;
+
+      
+    }
   }
 
   render() {

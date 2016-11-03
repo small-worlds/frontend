@@ -42,6 +42,13 @@ body {
   min-width: 10em;
 }
 
+.articlepage {
+  margin: 1em;
+  height: auto;
+  min-height: calc(100% - 2em);
+  width: calc(100% - 2em);
+}
+
 .articlecard {
   margin: 1em;
   list-style-type: none;

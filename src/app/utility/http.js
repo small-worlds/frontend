@@ -1,5 +1,6 @@
 import UserStore from "../stores/UserStore";
-var serverUrl = "https://api.smallworlds.io";
+
+const SERVER_URL = "https://api.smallworlds.io";
 
 
 function http(attr){
@@ -27,7 +28,7 @@ function http(attr){
     }
   };
 
-  request.open(attr.type, serverUrl + attr.url, true);
+  request.open(attr.type, SERVER_URL + attr.url, true);
 
   if(attr.hasOwnProperty("responseType")){
     request.responseType = attr.responseType;

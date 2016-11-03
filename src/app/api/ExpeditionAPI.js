@@ -1,17 +1,13 @@
 import http from "../utility/http";
 
 
+class ExpeditionAPI {
 
-class UserAPI {
-
-  signup(username, email, password, call){
+  register(call){
     http({
       type: "POST",
       url: "/auth/register/",
       data: JSON.stringify({
-        username: username,
-        email: email,
-        password: password
       }),
       headers: {
         "Content-Type": "Application/json;charset=UTF-8"
@@ -29,40 +25,32 @@ class UserAPI {
       onError: (err)=>call(JSON.parse(err), null)
     });
   }
-  
-  logout(call){
+
+  list(call){
     http({
-      type: "POST",
-      url: "/auth/logout/",
-      data: JSON.stringify({}),
+      type: "GET",
+      url: "/expeditions/",
       headers: {
         "Content-Type": "Application/json;charset=UTF-8"
       },
       onSuccess: (data)=>{
-        call(null, null);
+        var list = JSON.parse(data);
+        call(null, list);
       },
-      onError: (err)=>call(null, null)
+      onError: (err)=>call(JSON.parse(err), null)
     });
   }
 
-  login(username, password, call){
+  get(id, call){
     http({
-      type: "POST",
-      url: "/auth/login/",
-      data: JSON.stringify({
-        username: username,
-        password: password
-      }),
+      type: "GET",
+      url: "/expeditions/"+id,
       headers: {
         "Content-Type": "Application/json;charset=UTF-8"
       },
       onSuccess: (data)=>{
-        var json = JSON.parse(data);
-        if(json.auth_token){
-          call(null, json.auth_token);
-        }else{
-          call(json, null);
-        }
+        var data = JSON.parse(data);
+        call(null, data);
       },
       onError: (err)=>call(JSON.parse(err), null)
     });
@@ -71,4 +59,4 @@ class UserAPI {
 }
 
 
-export default new UserAPI();
+export default new ExpeditionAPI();

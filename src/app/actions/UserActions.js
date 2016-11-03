@@ -27,7 +27,23 @@ class UserActions {
         });
       }
     });
+  }
 
+  logout(){
+
+    UserAPI.logout((err, data)=>{
+
+      if(err){
+        AppDispatcher.dispatch({
+          actionType: UserConstants.USER_LOGOUT_FAILED,
+          err: err
+        });
+      }else{
+        AppDispatcher.dispatch({
+          actionType: UserConstants.USER_LOGOUT
+        });
+      }
+    });
   }
 
   signup(username, email, password){

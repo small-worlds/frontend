@@ -30,9 +30,9 @@ class UserStore extends EventEmitter {
       this.emitChange({type: UserConstants.USER_LOGIN_FAILED, data: action.err});
       break;
       case UserConstants.USER_LOGOUT:
-      this.cache.remove("data");
-      this.cache.remote("token");
-      this.emitChange();
+      case UserConstants.USER_LOGOUT_FAILED:
+      sessionStorage.clear();
+      this.emitChange({type: action.actionType});
       break;
     }
   }
