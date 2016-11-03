@@ -15,6 +15,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #navigation-bottom {
@@ -42,24 +43,82 @@ body {
 }
 
 .articlecard {
-  height: auto;
-  width: auto;
-}
-
-.swelogincard {
-  width auto;
   margin: 1em;
-  max-width: calc(100% - 2em);
-  width: 30em;
+  list-style-type: none;
+  float: left;
+  height: auto;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-.swegrid {
+.articlegrid {
   position: relative;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  flex: 1 0 0;
+  width: 100%;
+  height: calc(100% - 9em);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.articlegrid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+
+@media screen and (min-width: 100px) {
+  .articlecard {
+    width: calc(100% - 2em);
+  }
+
+  .articlecard:nth-of-type(2n+1) {
+    clear: left;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .articlecard {
+    width: calc(50% - 2em);
+  }
+
+  .articlecard:nth-of-type(n+1) {
+    clear: none;
+  }
+
+  .articlecard:nth-of-type(2n+1) {
+    clear: left;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .articlecard {
+    width: calc(33% - 2em);
+  }
+
+  .articlecard:nth-of-type(2n+1) {
+    clear: none;
+  }
+
+  .articlecard:nth-of-type(3n+1) {
+    clear: left;
+  }
+}
+
+
+@media screen and (min-width: 2048px) {
+  .articlecard {
+    width: calc(25% - 2em);
+  }
+
+  .articlecard:nth-of-type(3n+1) {
+    clear: none;
+  }
+
+  .articlecard:nth-of-type(4n+1) {
+    clear: left;
+  }
 }

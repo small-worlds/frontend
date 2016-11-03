@@ -30,8 +30,26 @@ class UserActions {
 
   }
 
+  signup(username, email, password){
+
+    UserAPI.signup(username, email, password, (err, data)=>{
+
+      if(err){
+        AppDispatcher.dispatch({
+          actionType: UserConstants.USER_LOGIN_FAILED,
+          err: err
+        });
+      }else{
+        AppDispatcher.dispatch({
+          actionType: UserConstants.USER_LOGIN,
+          data: data
+        });
+      }
+    });
+  }
+
 
 }
 
 
-export default let actions = new UserActions();
+export default new UserActions();

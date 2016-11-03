@@ -9,9 +9,9 @@ export default class SWEGrid extends Component {
   render(){
 
     return (
-      <div className="swegrid">
+      <ul className="articlegrid">
         {this.props.children}
-      </div>
+      </ul>
     );
   }
 

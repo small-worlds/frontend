@@ -29,6 +29,7 @@ export default class SWEBottomNavigation extends Component {
   }
 
   render() {
+
     return (
       <Paper zDepth={1} id="navigation-bottom">
         <BottomNavigation selectedIndex={this.state.selectedIndex}>
@@ -48,7 +49,7 @@ export default class SWEBottomNavigation extends Component {
             onTouchTap={() => this.select(2)}
             />
           <BottomNavigationItem
-            label="Insurance Claims"
+            label="Insurance"
             icon={rebuyIcon}
             onTouchTap={() => this.select(3)}
             />

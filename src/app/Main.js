@@ -24,7 +24,7 @@ class Main extends Component {
 
   render() {
 
-    console.log(SWETheme);
+    //console.log(SWETheme);
 
     return (
       <MuiThemeProvider muiTheme={SWETheme}>

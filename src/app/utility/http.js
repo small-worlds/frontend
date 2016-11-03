@@ -1,5 +1,5 @@
 
-var serverUrl = "";
+var serverUrl = "https://api.smallworlds.io";
 
 
 function http(attr){

@@ -4,10 +4,12 @@ import http from "../utility/http";
 
 class UserAPI {
 
-  login(email, password, call){
+  signup(username, email, password, call){
     http({
-      url: "/user/login",
+      type: "POST",
+      url: "/auth/register",
       data: JSON.stringify({
+        username, username,
         email: email,
         password: password
       }),
@@ -15,21 +17,28 @@ class UserAPI {
         "Content-Type": "Application/json;charset=UTF-8"
       },
       onSuccess: (data)=>{
+        console.log(data);
+        var json = JSON.parse(data);
 
+        if(json.token){
+          call(null, json.token);
+        }else{
+          call("Invalid", null);
+        }
       },
-      onError: (err)=>call("error contacting server", null);
+      onError: (err)=>call("Error: "+err, null)
     });
   }
 
-  logout(){
+  logout(call){
 
   }
 
-  signup(email, password, cmdr){
+  login(email, password, call){
 
   }
 
 }
 
 
-export default let api = new UserAPI();
+export default new UserAPI();

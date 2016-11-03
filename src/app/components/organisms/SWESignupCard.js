@@ -2,15 +2,20 @@ import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import UserActions from "../../actions/UserActions";
 
-export default class SWELogin extends Component {
+export default class SWESignupCard extends Component {
 
   propTypes: {
 
   };
 
-  render(){
+  signup(){
 
+  }
+
+  render(){
+    
     return (
       <Card className="swegridcard swelogincard">
         <CardHeader
