@@ -27,11 +27,11 @@ export default class SWEBottomNavigation extends Component {
   select(index){
     this.setState({selectedIndex: index});
     switch(index){
+
       case 0:
       browserHistory.push("/");
       break;
 
-      
     }
   }
 

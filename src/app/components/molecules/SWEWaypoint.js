@@ -4,8 +4,12 @@ import ExpeditionStore from "../../stores/ExpeditionStore";
 import ExpeditionActions from "../../actions/ExpeditionActions";
 import ExpeditionConstants from "../../constants/ExpeditionConstants";
 
-export default class SWEExpeditionPage extends Component {
+const STYLE = {
+  wordWrap: "normal",
+  whiteSpace: "normal"
+};
 
+export default class SWEExpeditionPage extends Component {
 
   constructor(){
     super();
@@ -19,13 +23,13 @@ export default class SWEExpeditionPage extends Component {
       return;
     }
 
+    var id = this.props.id;
+
     switch(e.type){
       case ExpeditionConstants.EXPEDITION_GET_WAYPOINT:
-      console.log("fuck shit",e);
-      this.setState(e.data);
+      this.setState(ExpeditionStore.getWaypoint(id));
       break;
     }
-
   }
 
   componentWillMount(){
@@ -37,10 +41,8 @@ export default class SWEExpeditionPage extends Component {
     if(data === null){
       ExpeditionActions.getWaypoint(id);
     }else{
-      console.log(data);
       this.setState(data);
     }
-
   }
 
   componentWillUnmount(){
@@ -52,10 +54,10 @@ export default class SWEExpeditionPage extends Component {
 
     return (
       <TableRow>
-        <TableRowColumn>{this.state.name}</TableRowColumn>
-        <TableRowColumn>{this.state.system}</TableRowColumn>
-        <TableRowColumn>{this.state.planet}</TableRowColumn>
-        <TableRowColumn>{this.state.latitude+", "+this.state.longitude}</TableRowColumn>
+        <TableRowColumn style={STYLE}>{this.state.name}</TableRowColumn>
+        <TableRowColumn style={STYLE}>{this.state.system}</TableRowColumn>
+        <TableRowColumn style={STYLE}>{this.state.planet}</TableRowColumn>
+        <TableRowColumn style={STYLE}>{this.state.latitude+", "+this.state.longitude}</TableRowColumn>
       </TableRow>
     );
   }

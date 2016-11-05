@@ -19,13 +19,10 @@ class ExpeditionAPI {
         "Content-Type": "Application/json;charset=UTF-8"
       },
       onSuccess: (data)=>{
-        console.log(data);
         var json = JSON.parse(data);
         call(null, json);
       },
-      onError: (err)=>{
-        call(JSON.parse(err), null);
-      }
+      onError: (err)=>call(JSON.parse(err), null)
     });
   }
 

@@ -21,7 +21,7 @@ export default class SWEExpeditionCard extends Component {
         <CardHeader
           title={this.props.name}
           subtitle={this.props.startDate + " to " + this.props.endDate}
-          avatar="assets/images/logo.png"
+          avatar="/assets/images/logo.png"
           />
         <CardMedia
           overlay={<CardTitle title={this.props.name} subtitle={"Minimum Jump " + this.props.minJump + "Ly"} />}

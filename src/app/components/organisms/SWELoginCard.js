@@ -1,8 +1,8 @@
 import React, {Component} from "react";
+import ReactDOM from "react-dom";
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from "material-ui/Card";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import Snackbar from "material-ui/Snackbar";
 import UserActions from "../../actions/UserActions";
 import UserStore from "../../stores/UserStore";
 import UserConstants from "../../constants/UserConstants";
@@ -17,8 +17,6 @@ export default class SWELoginCard extends Component {
   state = {
     showSignup: false,
     form_rpassword_error: "",
-    snackMessage: "",
-    hasSnackMessage: false,
     form_email: "",
     form_username: "",
     form_password: "",
@@ -32,27 +30,20 @@ export default class SWELoginCard extends Component {
     }
 
     switch(e.type){
+
       case UserConstants.USER_SIGNUP_FAILED:
       case UserConstants.USER_LOGIN_FAILED:
       this.setState({
-        form_rpassword_error: e.data.non_field_errors,
-        snackMessage: e.data.non_field_errors,
-        hasSnackMessage: true
+        form_rpassword_error: e.data.non_field_errors
       });
       break;
+
       case UserConstants.USER_SIGNUP:
-      this.setState({
-        snackMessage: "Signed up, check your inbox for the Activation Email!",
-        hasSnackMessage: true,
-        showSignup: false
-      });
+      if(this.state.showSignup){
+        this.toggleView();
+      }
       break;
-      case UserConstants.USER_LOGIN:
-      this.setState({
-        snackMessage: "Logged in!",
-        hasSnackMessage: true
-      });
-      break;
+
     }
   }
 
@@ -66,7 +57,18 @@ export default class SWELoginCard extends Component {
   }
 
   toggleView(){
-    this.setState({showSignup: !this.state.showSignup});
+
+    this.setState({
+      showSignup: !this.state.showSignup,
+      form_username: "",
+      form_email: "",
+      form_password: "",
+      form_rpassword: ""
+    });
+
+    setTimeout(()=>{
+      this.refs.username.focus();
+    }, 50);
   }
 
   changeListener(e){
@@ -88,7 +90,7 @@ export default class SWELoginCard extends Component {
     this.setState({form_rpassword_error: ""});
 
     if(this.state.form_username.length === 0 || this.state.form_password.length === 0){
-      // Focus on empty element
+      //TODO Focus on empty element
       return;
     }
     UserActions.login(this.state.form_username, this.state.form_password);
@@ -99,13 +101,11 @@ export default class SWELoginCard extends Component {
     this.setState({form_rpassword_error: ""});
 
     if(this.state.form_email.length === 0 || this.state.form_password.length === 0 || this.state.form_rpassword.length === 0){
-      // Focus on empty element
-
+      //TODO Focus on empty element
       return;
     }
 
     if(this.state.form_password !== this.state.form_rpassword){
-      // Passwords do not match
       this.setState({form_rpassword_error: "Passwords do not match"});
       this.refs.rpassword.focus();
       return;
@@ -115,7 +115,6 @@ export default class SWELoginCard extends Component {
   }
 
   render(){
-
     return (
       <Card className="articlecard">
         <CardHeader
@@ -130,20 +129,24 @@ export default class SWELoginCard extends Component {
               (
                 <div>
                   <TextField
-                    ref="email"
-                    id="email"
-                    hintText="Email"
+                    ref="username"
+                    id="username"
+                    hintText="Username"
+                    value={this.state.form_username}
                     />
                   <br/>
                   <TextField
-                    id="username"
-                    hintText="Username"
+                    ref="email"
+                    id="email"
+                    hintText="Email"
+                    value={this.state.form_email}
                     />
                   <br/>
                   <TextField
                     id="password"
                     hintText="Password"
                     type="password"
+                    value={this.state.form_password}
                     />
                   <br/>
                   <TextField
@@ -152,13 +155,16 @@ export default class SWELoginCard extends Component {
                     hintText="Repeat Password"
                     errorText={this.state.form_rpassword_error}
                     type="password"
+                    value={this.state.form_rpassword}
                     />
                 </div>
               ) : (
                 <div>
                   <TextField
+                    ref="username"
                     id="username"
                     hintText="Username"
+                    value={this.state.form_username}
                     />
                   <br/>
                   <TextField
@@ -166,11 +172,11 @@ export default class SWELoginCard extends Component {
                     hintText="Password"
                     errorText={this.state.form_rpassword_error}
                     type="password"
+                    value={this.state.form_password}
                     />
                 </div>
               )
             }
-
           </CardText>
           <CardActions>
             <FlatButton
@@ -183,11 +189,6 @@ export default class SWELoginCard extends Component {
               />
           </CardActions>
         </form>
-        <Snackbar
-          open={this.state.hasSnackMessage}
-          message={this.state.snackMessage}
-          autoHideDuration={2000}
-          />
       </Card>
     );
   }

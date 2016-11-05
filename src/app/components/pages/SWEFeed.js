@@ -13,6 +13,7 @@ export default class SWEFeed extends Component {
     this.state = {
       expeditions: ExpeditionStore.list()
     };
+
     this.valid = true;
   }
 
@@ -23,11 +24,12 @@ export default class SWEFeed extends Component {
     }
 
     switch(e.type){
+
       case ExpeditionConstants.EXPEDITION_LIST:
       this.setState({expeditions: ExpeditionStore.list()});
       break;
-    }
 
+    }
   }
 
   componentWillMount(){
@@ -44,9 +46,6 @@ export default class SWEFeed extends Component {
 
 
   render(){
-
-    console.log(this.state.expeditions);
-
     return (
       <div>
         {

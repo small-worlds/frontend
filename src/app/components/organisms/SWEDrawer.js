@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
 import UserActions from "../../actions/UserActions";
+import UserStore from "../../stores/UserStore";
 
 export default class SWEDrawer extends Component {
 
@@ -16,11 +17,20 @@ export default class SWEDrawer extends Component {
         docked={false}
         onRequestChange={(open) => this.props.onChange()}
         >
-        <MenuItem onTouchTap={(open) => {
-            this.logout();
-            this.props.onChange();
-          }
-        }>Log Out</MenuItem>
+        {
+          UserStore.isLoggedIn() ?
+          (
+            <MenuItem onTouchTap={
+                (open) => {
+                  this.logout();
+                  this.props.onChange();
+                }
+              }>Log Out
+            </MenuItem>
+          ) : (
+            null
+          )
+        }
       </Drawer>
     );
   }

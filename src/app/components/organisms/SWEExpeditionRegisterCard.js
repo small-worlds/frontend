@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from "material-ui/Card";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
-import Snackbar from "material-ui/Snackbar";
 import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import SWEShipSelect from "../atoms/SWEShipSelect";
@@ -10,6 +9,7 @@ import ExpeditionActions from "../../actions/ExpeditionActions";
 import ExpeditionConstants from "../../constants/ExpeditionConstants";
 import ShipData from "../../constants/ShipData";
 import {browserHistory} from "react-router";
+import FlowActions from "../../actions/FlowActions";
 
 export default class SWEExpeditionRegisterCard extends Component {
 
@@ -21,9 +21,7 @@ export default class SWEExpeditionRegisterCard extends Component {
       ship_name: "",
       ship_jump: "",
       ship_weight: "",
-      ship_rebuy: "",
-      snackMessage: "",
-      hasSnackMessage: false
+      ship_rebuy: ""
     };
     this.valid = true;
   }
@@ -41,17 +39,13 @@ export default class SWEExpeditionRegisterCard extends Component {
         this.setState(ExpeditionStore.getRegistration(id));
       }
       break;
-      case ExpeditionConstants.EXPEDITION_REGISTER:
-      this.showSnackBar("Saved Registration!");
-      break;
-      case ExpeditionConstants.EXPEDITION_REGISTER_FAILED:
-      this.showSnackBar(e.err);
-      break;
-      case ExpeditionStore.EXPEDITION_DEREGISTER:
-      this.showSnackBar("Retracted from Expedition");
-      break;
-      case ExpeditionStore.EXPEDITION_DEREGISTER_FAILED:
-      this.showSnackBar("Error Retracting from Expedition");
+      case ExpeditionConstants.EXPEDITION_DEREGISTER:
+      this.setState({
+        ship_name: "",
+        ship_jump: "",
+        ship_weight: "",
+        ship_rebuy: ""
+      });
       break;
     }
   }
@@ -59,14 +53,6 @@ export default class SWEExpeditionRegisterCard extends Component {
   isRegistered(){
     var id = this.props.params.id;
     return ExpeditionStore.isRegistered(id);
-  }
-
-  showSnackBar(e){
-    if(typeof e !== "string"){
-      e = JSON.stringify(e);
-    }
-    this.setState({hasSnackMessage: true, snackMessage: e});
-    setTimeout(()=>this.setState({hasSnackMessage: false}), 2000);
   }
 
   componentWillMount(){
@@ -106,7 +92,6 @@ export default class SWEExpeditionRegisterCard extends Component {
   saveDetails(){
 
     var id = this.props.params.id;
-    console.log(this.state);
 
     if(this.isRegistered()){
 
@@ -132,13 +117,14 @@ export default class SWEExpeditionRegisterCard extends Component {
 
   retract(){
     if(this.isRegistered()){
-      var id = this.props.params.id;
-      ExpeditionActions.deregister(ExpeditionStore.getRegistrationId(id));
-      this.setState({
-        ship_name: "",
-        ship_jump: "",
-        ship_weight: "",
-        ship_rebuy: ""
+
+      FlowActions.askConfirm({
+        title: "Are You Sure?",
+        text: "Retract from Expedition: "+this.state.name,
+        onConfirm: ()=>{
+          var id = this.props.params.id;
+          ExpeditionActions.deregister(id);
+        }
       });
     }
   }
@@ -193,20 +179,22 @@ export default class SWEExpeditionRegisterCard extends Component {
             label="Save"
             onTouchTap={()=>this.saveDetails()}
             />
-          <FlatButton
-            label="Retract"
-            onTouchTap={()=>this.retract()}
-            />
+          {
+            this.isRegistered() ?
+            (
+              <FlatButton
+                label="Retract"
+                onTouchTap={()=>this.retract()}
+                />
+            ) : (
+              null
+            )
+          }
           <FlatButton
             label="Back"
             onTouchTap={()=>browserHistory.goBack()}
             />
         </CardActions>
-        <Snackbar
-          open={this.state.hasSnackMessage}
-          message={this.state.snackMessage}
-          autoHideDuration={2000}
-          />
       </Card>
     );
   }

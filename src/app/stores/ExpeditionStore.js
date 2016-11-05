@@ -13,21 +13,24 @@ class ExpeditionStore extends EventEmitter {
   }
 
   onAction(action){
-    var data;
     var type = action.actionType;
     switch(type){
+
       case ExpeditionConstants.EXPEDITION_LIST:
       this.cache.set("list", JSON.stringify(action.data));
       this.emitChange({type: type, data: action.data});
       break;
+
       case ExpeditionConstants.EXPEDITION_GET:
       this.cache.set(action.id, JSON.stringify(action.data));
       this.emitChange({type: type, data: action.data});
       break;
+
       case ExpeditionConstants.EXPEDITION_GET_WAYPOINT:
       this.cache.set("wp"+action.id, JSON.stringify(action.data));
       this.emitChange({type: type, data: action.data});
       break;
+
       case ExpeditionConstants.EXPEDITION_GET_REGISTRATIONS:
       this.cache.set("*reg_fetched", Date.now());
       action.list.map((entry, i)=>{
@@ -35,15 +38,22 @@ class ExpeditionStore extends EventEmitter {
       });
       this.emitChange({type: type, data: action.data});
       break;
+
       case ExpeditionConstants.EXPEDITION_REGISTER:
       this.setRegistration(action.data);
       this.emitChange({type: type, data: action.data});
       break;
+
       case ExpeditionConstants.EXPEDITION_REGISTER_FAILED:
       this.emitChange({type: type, err: action.err});
       break;
+
       case ExpeditionConstants.EXPEDITION_DEREGISTER:
       this.cache.remove("*reg"+action.id);
+      this.emitChange({type: type});
+      break;
+
+      case ExpeditionConstants.EXPEDITION_DEREGISTER_FAILED:
       this.emitChange({type: type});
       break;
     }

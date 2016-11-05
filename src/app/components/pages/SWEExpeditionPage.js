@@ -25,13 +25,15 @@ export default class SWEExpeditionPage extends Component {
       return;
     }
 
-    switch(e.type){
-      case ExpeditionConstants.EXPEDITION_GET:
-      console.log("fuck shit",e);
-      this.setState(e.data);
-      break;
-    }
+    var id = this.props.params.id;
 
+    switch(e.type){
+
+      case ExpeditionConstants.EXPEDITION_GET:
+      this.setState(ExpeditionStore.get(id));
+      break;
+
+    }
   }
 
   componentWillMount(){
@@ -43,7 +45,6 @@ export default class SWEExpeditionPage extends Component {
     if(data === null){
       ExpeditionActions.get(id);
     }else{
-      console.log(data);
       this.setState(data);
     }
   }
@@ -54,7 +55,6 @@ export default class SWEExpeditionPage extends Component {
   }
 
   render(){
-    console.log(this.state);
     return (
       <Card className="articlepage">
         <CardHeader
@@ -99,7 +99,7 @@ export default class SWEExpeditionPage extends Component {
           </TableBody>
         </Table>
         <CardActions>
-          <FlatButton 
+          <FlatButton
             label="Sign Up"
             onTouchTap={()=>browserHistory.push("/expeditions/"+this.props.params.id+"/register")}
             />

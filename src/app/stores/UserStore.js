@@ -13,27 +13,32 @@ class UserStore extends EventEmitter {
   }
 
   onAction(action){
-    var data;
-    switch(action.actionType){
+    var type = action.actionType;
+    switch(type){
 
       case UserConstants.USER_SIGNUP:
-      this.emitChange({type: UserConstants.USER_SIGNUP, data: action.data});
+      this.emitChange({type: type, data: action.data});
       break;
+
       case UserConstants.USER_SIGNUP_FAILED:
-      this.emitChange({type: UserConstants.USER_SIGNUP_FAILED, data: action.err});
+      this.emitChange({type: type, data: action.err});
       break;
+
       case UserConstants.USER_LOGIN:
       this.cache.set("token", action.token);
-      this.emitChange({type: UserConstants.USER_LOGIN, data: ""});
+      this.emitChange({type: type, data: ""});
       break;
+
       case UserConstants.USER_LOGIN_FAILED:
-      this.emitChange({type: UserConstants.USER_LOGIN_FAILED, data: action.err});
+      this.emitChange({type: type, data: action.err});
       break;
+
       case UserConstants.USER_LOGOUT:
       case UserConstants.USER_LOGOUT_FAILED:
       sessionStorage.clear();
-      this.emitChange({type: action.actionType});
+      this.emitChange({type: type});
       break;
+      
     }
   }
 

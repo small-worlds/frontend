@@ -1,7 +1,7 @@
 import AppDispatcher from "../dispatchers/AppDispatcher";
 import ExpeditionConstants from "../constants/ExpeditionConstants";
 import ExpeditionAPI from "../api/ExpeditionAPI";
-
+import ExpeditionStore from "../stores/ExpeditionStore";
 
 
 class ExpeditionActions {
@@ -50,8 +50,8 @@ class ExpeditionActions {
 
   deregister(id){
 
-    ExpeditionAPI.deregister(id, (err, data)=>{
-
+    ExpeditionAPI.deregister(ExpeditionStore.getRegistrationId(id), (err, data)=>{
+      
       if(err){
         AppDispatcher.dispatch({
           actionType: ExpeditionConstants.EXPEDITION_DEREGISTER_FAILED,

@@ -29,14 +29,11 @@ export default class SWEShipSelect extends Component {
         return i;
       }
     }
-    
+
     return 0;
   }
 
   render(){
-
-
-
     return (
       <SelectField
         floatingLabelText="Ship"
