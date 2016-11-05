@@ -13,18 +13,19 @@ const config = {
   ],
   // Server Configuration options
   devServer: {
-    contentBase: 'src/www', // Relative directory for base of server
+    contentBase: "src/www/",
     devtool: 'eval',
     hot: true, // Live-reload
     inline: true,
     port: 3000, // Port Number
-    host: 'localhost', // Change to '0.0.0.0' for external facing server
-    outputPath: buildPath,
-    historyApiFallback: true
+    historyApiFallback: {
+      index: "index.html"
+    }
   },
   devtool: 'eval',
   output: {
-    path: buildPath, // Path of output file
+    path: path.resolve(__dirname, "src/www"), // Path of output file
+    publicPath: "http://localhost:3000/",
     filename: 'app.js',
   },
   plugins: [

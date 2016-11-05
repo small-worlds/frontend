@@ -59,6 +59,9 @@ export default class SWEFeed extends Component {
                 startDate={entry.start_date}
                 endDate={entry.end_date}
                 minJump={entry.min_jump}
+                description={entry.description}
+                isMovie={entry.teaser_is_movie}
+                image={entry.teaser_image}
                 />
             );
           })

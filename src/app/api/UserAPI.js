@@ -29,7 +29,7 @@ class UserAPI {
       onError: (err)=>call(JSON.parse(err), null)
     });
   }
-  
+
   logout(call){
     http({
       type: "POST",
@@ -59,6 +59,7 @@ class UserAPI {
       onSuccess: (data)=>{
         var json = JSON.parse(data);
         if(json.auth_token){
+          console.log(json);
           call(null, json.auth_token);
         }else{
           call(json, null);

@@ -10,7 +10,7 @@ function http(attr){
 
   request.onreadystatechange = function(){
     if(request.readyState === 4){
-      if(request.status === 200){
+      if(request.status >= 200 && request.status <= 206){
         attr.onSuccess(this.response, this);
       }else if(backoff > 0 && request.status !== 404){
 

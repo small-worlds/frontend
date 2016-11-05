@@ -3,7 +3,7 @@ import {EventEmitter} from "events";
 import UserConstants from "../constants/UserConstants";
 import SessionCache from "./SessionCache";
 
-const CHANGE_EVENT = "change";
+const CHANGE_EVENT = "change_user";
 
 class UserStore extends EventEmitter {
 

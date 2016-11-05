@@ -18,7 +18,11 @@ export default class SWELoginCard extends Component {
     showSignup: false,
     form_rpassword_error: "",
     snackMessage: "",
-    hasSnackMessage: false
+    hasSnackMessage: false,
+    form_email: "",
+    form_username: "",
+    form_password: "",
+    form_rpassword: ""
   }
 
   onData = (e)=>{
@@ -117,7 +121,7 @@ export default class SWELoginCard extends Component {
         <CardHeader
           title="Small Worlds Signup"
           subtitle="Come join us!"
-          avatar="assets/images/logo.png"
+          avatar="/assets/images/logo.png"
           />
         <form className="sweform">
           <CardText onChange={(e)=>this.changeListener(e)}>
@@ -150,9 +154,7 @@ export default class SWELoginCard extends Component {
                     type="password"
                     />
                 </div>
-              )
-              :
-              (
+              ) : (
                 <div>
                   <TextField
                     id="username"
@@ -182,10 +184,10 @@ export default class SWELoginCard extends Component {
           </CardActions>
         </form>
         <Snackbar
-         open={this.state.hasSnackMessage}
-         message={this.state.snackMessage}
-         autoHideDuration={2000}
-       />
+          open={this.state.hasSnackMessage}
+          message={this.state.snackMessage}
+          autoHideDuration={2000}
+          />
       </Card>
     );
   }

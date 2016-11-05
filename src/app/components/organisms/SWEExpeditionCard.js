@@ -16,7 +16,6 @@ export default class SWEExpeditionCard extends Component {
   }
 
   render(){
-
     return (
       <Card className="articlecard">
         <CardHeader
@@ -27,10 +26,14 @@ export default class SWEExpeditionCard extends Component {
         <CardMedia
           overlay={<CardTitle title={this.props.name} subtitle={"Minimum Jump " + this.props.minJump + "Ly"} />}
           >
-          <video src="https://fat.gfycat.com/ComposedFoolishGemsbok.webm" autoPlay loop/>
+          {
+            this.props.isMovie ?
+            (<video src={this.props.image} autoPlay loop/>) :
+            (<img src={this.props.image}/>)
+          }
         </CardMedia>
         <CardText>
-          Come join us for a tour of historic thargoid fuckups
+          {this.props.description}
         </CardText>
         <CardActions>
           <FlatButton

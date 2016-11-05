@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from "material-ui/Card";
-import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import Snackbar from "material-ui/Snackbar";
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
+import SWEWaypoint from "../molecules/SWEWaypoint";
 import ExpeditionStore from "../../stores/ExpeditionStore";
 import ExpeditionActions from "../../actions/ExpeditionActions";
 import ExpeditionConstants from "../../constants/ExpeditionConstants";
-import { browserHistory } from "react-router";
+import {browserHistory} from "react-router";
 
 export default class SWEExpeditionPage extends Component {
 
@@ -14,7 +14,7 @@ export default class SWEExpeditionPage extends Component {
   constructor(){
     super();
     this.state = {
-
+      waypoints: []
     };
     this.valid = true;
   }
@@ -27,17 +27,24 @@ export default class SWEExpeditionPage extends Component {
 
     switch(e.type){
       case ExpeditionConstants.EXPEDITION_GET:
-      console.log(e);
-      this.setState({});
+      console.log("fuck shit",e);
+      this.setState(e.data);
       break;
     }
 
   }
 
   componentWillMount(){
+
+    var id = this.props.params.id;
     ExpeditionStore.addChangeListener(this.onData);
-    if(ExpeditionStore.get(this.props.params.id) === null){
-      ExpeditionActions.get(this.props.params.id);
+    var data = ExpeditionStore.get(id);
+
+    if(data === null){
+      ExpeditionActions.get(id);
+    }else{
+      console.log(data);
+      this.setState(data);
     }
   }
 
@@ -47,24 +54,55 @@ export default class SWEExpeditionPage extends Component {
   }
 
   render(){
-
+    console.log(this.state);
     return (
       <Card className="articlepage">
         <CardHeader
-          title="Alien Encounters Tour"
-          subtitle="August 3303"
-          avatar="assets/images/logo.png"
+          title={this.state.name}
+          subtitle={this.state.start_date + " to " + this.state.end_date}
+          avatar="/assets/images/logo.png"
           />
         <CardMedia
-          overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+          overlay={<CardTitle title={this.state.name} subtitle={"Minimum Jump " + this.state.min_jump + "Ly"} />}
           >
-          <video src="https://fat.gfycat.com/ComposedFoolishGemsbok.webm" autoPlay loop/>
+          {
+            this.state.teaser_is_movie ? (
+              <video src={this.state.teaser_image} autoPlay loop/>
+            ) : (
+              <img src={this.state.teaser_image} />
+            )
+          }
         </CardMedia>
         <CardText>
-          Come join us for a tour of historic thargoid fuckups
+          {this.state.description}
         </CardText>
+        <Table selectable={false}>
+          <TableHeader
+            displaySelectAll={false}
+            adjustForCheckbox={false}
+            >
+            <TableRow>
+              <TableHeaderColumn>Waypoint</TableHeaderColumn>
+              <TableHeaderColumn>System</TableHeaderColumn>
+              <TableHeaderColumn>Planet</TableHeaderColumn>
+              <TableHeaderColumn>Coords</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {
+              this.state.waypoints.map((id, i)=>{
+                return (
+                  <SWEWaypoint id={id} key={id}/>
+                );
+              })
+            }
+          </TableBody>
+        </Table>
         <CardActions>
-          <FlatButton label="Sign Up" />
+          <FlatButton 
+            label="Sign Up"
+            onTouchTap={()=>browserHistory.push("/expeditions/"+this.props.params.id+"/register")}
+            />
           <FlatButton
             label="Back"
             onTouchTap={()=>browserHistory.goBack()}

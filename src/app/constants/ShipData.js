@@ -1,0 +1,35 @@
+import keyMirror from "keymirror";
+
+
+export default [
+  {make:"Zorgon Peterson", model:"Adder"},
+  {make:"Faulcon DeLacy", model:"Anaconda"},
+  {make:"Lakon", model:"Asp Explorer"},
+  {make:"Lakon", model:"Asp Scout"},
+  {make:"Saud Kruger", model:"Beluga Liner"},
+  {make:"Faulcon DeLacy", model:"Cobra Mk III"},
+  {make:"Faulcon DeLacy", model:"Cobra Mk IV"},
+  {make:"Lakon", model:"Diamondback Explorer"},
+  {make:"Lakon", model:"Diamondback Scout"},
+  {make:"Core Dynamics", model:"Eagle"},
+  {make:"Core Dynamics", model:"Federal Assault Ship"},
+  {make:"Core Dynamics", model:"Federal Corvette"},
+  {make:"Core Dynamics", model:"Federal Dropship"},
+  {make:"Core Dynamics", model:"Federal Gunship"},
+  {make:"Zorgon Peterson", model:"Fer-de-Lance"},
+  {make:"Zorgon Peterson", model:"Hauler"},
+  {make:"Gutamaya", model:"Imperial Clipper"},
+  {make:"Gutamaya", model:"Imperial Courier"},
+  {make:"Gutamaya", model:"Imperial Cutter"},
+  {make:"Core Dynamics", model:"Imperial Eagle"},
+  {make:"Lakon", model:"Keelback"},
+  {make:"Saud Kruger", model:"Orca"},
+  {make:"Faulcon DeLacy", model:"Python"},
+  {make:"Faulcon DeLacy", model:"Sidewinder"},
+  {make:"Lakon", model:"Type-6 Transporter"},
+  {make:"Lakon", model:"Type-7 Transporter"},
+  {make:"Lakon", model:"Type-9 Heavy"},
+  {make:"Faulcon DeLacy", model:"Viper"},
+  {make:"Faulcon DeLacy", model:"Viper Mk IV"},
+  {make:"Core Dynamics", model:"Vulture"}
+];
