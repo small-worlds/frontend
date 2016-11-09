@@ -24,6 +24,14 @@ class UserStore extends EventEmitter {
       this.emitChange({type: type, err: action.err});
       break;
 
+      case UserConstants.USER_ACTIVATE:
+      this.emitChange({type: type, data: action.data});
+      break;
+
+      case UserConstants.USER_ACTIVATE_FAILED:
+      this.emitChange({type: type, err: action.err});
+      break;
+
       case UserConstants.USER_LOGIN:
       this.cache.set("token", action.token);
       this.emitChange({type: type, data: ""});

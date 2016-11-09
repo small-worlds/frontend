@@ -15,6 +15,7 @@ import ExpeditionConstants from "./constants/ExpeditionConstants";
 import FlowStore from "./stores/FlowStore";
 import FlowConstants from "./constants/FlowConstants";
 import FlowActions from "./actions/FlowActions";
+import {browserHistory} from "react-router";
 
 class Main extends Component {
 
@@ -78,6 +79,15 @@ class Main extends Component {
 
       case UserConstants.USER_SIGNUP_FAILED:
       this.setSnackMessage("Error Signing Up!");
+      break;
+
+      case UserConstants.USER_ACTIVATE:
+      this.setSnackMessage("Activated account, you can now log in!");
+      browserHistory.push("/");
+      break;
+
+      case UserConstants.USER_ACTIVATE_FAILED:
+      this.setSnackMessage("Error activating account!");
       break;
 
     }
@@ -160,6 +170,10 @@ class Main extends Component {
   }
 
   render() {
+
+    var path = this.props.location.pathname;
+    var showAuth = !this.state.authenticated && !path.startsWith("/activate/");
+
     return (
       <MuiThemeProvider muiTheme={SWETheme}>
         <div id="background">
@@ -167,12 +181,11 @@ class Main extends Component {
           <SWEDrawer drawerOpen={this.state.drawerOpen} onChange={()=>this.toggleDrawer()}/>
           <SWEGrid>
             {
-              this.state.authenticated ?
-              (
-                this.props.children
-              ) :
+              showAuth ?
               (
                 <SWELoginCard />
+              ) : (
+                this.props.children
               )
             }
           </SWEGrid>

@@ -6,21 +6,21 @@ import UserAPI from "../api/UserAPI";
 
 class UserActions {
 
-  constructor(){
+  constructor() {
 
   }
 
 
-  login(username, password){
+  login(username, password) {
 
-    UserAPI.login(username, password, (err, data)=>{
+    UserAPI.login(username, password, (err, data) => {
 
-      if(err){
+      if (err) {
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_LOGIN_FAILED,
           err: err
         });
-      }else{
+      } else {
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_LOGIN,
           token: data
@@ -29,16 +29,16 @@ class UserActions {
     });
   }
 
-  logout(){
+  logout() {
 
-    UserAPI.logout((err, data)=>{
+    UserAPI.logout((err, data) => {
 
-      if(err){
+      if (err) {
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_LOGOUT_FAILED,
           err: err
         });
-      }else{
+      } else {
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_LOGOUT
         });
@@ -46,17 +46,17 @@ class UserActions {
     });
   }
 
-  signup(username, email, password){
+  signup(username, email, password) {
 
-    UserAPI.signup(username, email, password, (err, data)=>{
+    UserAPI.signup(username, email, password, (err, data) => {
 
-      if(err){
+      if (err) {
         console.log("signup failing", err);
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_SIGNUP_FAILED,
           err: err
         });
-      }else{
+      } else {
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_SIGNUP,
           data: data
@@ -65,6 +65,23 @@ class UserActions {
     });
   }
 
+  activate(id, token) {
+
+    UserAPI.activate(id, token, (err, data) => {
+
+      if (err) {
+        AppDispatcher.dispatch({
+          actionType: UserConstants.USER_ACTIVATE_FAILED,
+          err: err
+        });
+      } else {
+        AppDispatcher.dispatch({
+          actionType: UserConstants.USER_ACTIVATE,
+          data: data
+        });
+      }
+    });
+  }
 
 }
 

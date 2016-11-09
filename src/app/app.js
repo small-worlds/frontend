@@ -6,6 +6,7 @@ import Main from "./Main";
 import SWEFeed from "./components/pages/SWEFeed";
 import SWEExpeditionPage from "./components/pages/SWEExpeditionPage";
 import SWEExpeditionRegisterCard from "./components/organisms/SWEExpeditionRegisterCard";
+import SWEActivateCard from "./components/organisms/SWEActivateCard";
 
 injectTapEventPlugin();
 
@@ -15,6 +16,7 @@ render(
       <IndexRoute component={SWEFeed}/>
       <Route path="/expeditions/:id" component={SWEExpeditionPage}/>
       <Route path="/expeditions/:id/register" component={SWEExpeditionRegisterCard}/>
+      <Route path="/activate/:id/:token" component={SWEActivateCard} />
     </Route>
   </Router>,
   document.getElementById("app")

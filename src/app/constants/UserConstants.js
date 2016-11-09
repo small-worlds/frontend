@@ -9,5 +9,7 @@ export default keyMirror({
   USER_LOGOUT: null,
   USER_LOGOUT_FAILED: null,
   USER_SIGNUP: null,
-  USER_SIGNUP_FAILED: null
+  USER_SIGNUP_FAILED: null,
+  USER_ACTIVATE: null,
+  USER_ACTIVATE_FAILED: null
 });
