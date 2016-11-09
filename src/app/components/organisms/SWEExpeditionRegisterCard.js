@@ -178,17 +178,18 @@ export default class SWEExpeditionRegisterCard extends Component {
             label="Save"
             onTouchTap={()=>this.saveDetails()}
             />
-          // {
-          //   this.isRegistered() ?
-          //   (
-          //     <FlatButton
-          //       label="Retract"
-          //       onTouchTap={()=>this.retract()}
-          //       />
-          //   ) : (
-          //     null
-          //   )
-          // }
+          {
+            this.isRegistered() ?
+            (
+              <FlatButton
+                label="Retract"
+                // onTouchTap={()=>this.retract()}
+                onTouchTap={null}
+                />
+            ) : (
+              null
+            )
+          }
           <FlatButton
             label="Back"
             onTouchTap={()=>browserHistory.goBack()}
