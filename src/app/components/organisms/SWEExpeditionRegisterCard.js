@@ -114,19 +114,19 @@ export default class SWEExpeditionRegisterCard extends Component {
     }
   }
 
-  retract(){
-    if(this.isRegistered()){
-
-      FlowActions.dialog({
-        title: "Are You Sure?",
-        text: "Retract from Expedition: "+this.state.name,
-        onConfirm: ()=>{
-          var id = this.props.params.id;
-          ExpeditionActions.deregister(id);
-        }
-      });
-    }
-  }
+  // retract(){
+  //   if(this.isRegistered()){
+  //
+  //     FlowActions.dialog({
+  //       title: "Are You Sure?",
+  //       text: "Retract from Expedition: "+this.state.name,
+  //       onConfirm: ()=>{
+  //         var id = this.props.params.id;
+  //         ExpeditionActions.deregister(id);
+  //       }
+  //     });
+  //   }
+  // }
 
   render(){
 
@@ -178,17 +178,17 @@ export default class SWEExpeditionRegisterCard extends Component {
             label="Save"
             onTouchTap={()=>this.saveDetails()}
             />
-          {
-            this.isRegistered() ?
-            (
-              <FlatButton
-                label="Retract"
-                onTouchTap={()=>this.retract()}
-                />
-            ) : (
-              null
-            )
-          }
+          // {
+          //   this.isRegistered() ?
+          //   (
+          //     <FlatButton
+          //       label="Retract"
+          //       onTouchTap={()=>this.retract()}
+          //       />
+          //   ) : (
+          //     null
+          //   )
+          // }
           <FlatButton
             label="Back"
             onTouchTap={()=>browserHistory.goBack()}

@@ -49,16 +49,16 @@ class ExpeditionAPI {
     });
   }
 
-  deregister(id, call){
-    http({
-      type: "DELETE",
-      url: "/registrations/"+id+"/",
-      onSuccess: (data)=>{
-        call(null, null);
-      },
-      onError: (err)=>call("Error retracting from expedition", null)
-    });
-  }
+  // deregister(id, call){
+  //   http({
+  //     type: "DELETE",
+  //     url: "/registrations/"+id+"/",
+  //     onSuccess: (data)=>{
+  //       call(null, null);
+  //     },
+  //     onError: (err)=>call("Error retracting from expedition", null)
+  //   });
+  // }
 
   list(call){
     http({

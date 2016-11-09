@@ -48,23 +48,23 @@ class ExpeditionActions {
     });
   }
 
-  deregister(id){
-
-    ExpeditionAPI.deregister(ExpeditionStore.getRegistrationId(id), (err, data)=>{
-      
-      if(err){
-        AppDispatcher.dispatch({
-          actionType: ExpeditionConstants.EXPEDITION_DEREGISTER_FAILED,
-          err: err
-        });
-      }else{
-        AppDispatcher.dispatch({
-          actionType: ExpeditionConstants.EXPEDITION_DEREGISTER,
-          id: id
-        });
-      }
-    });
-  }
+  // deregister(id){
+  //
+  //   ExpeditionAPI.deregister(ExpeditionStore.getRegistrationId(id), (err, data)=>{
+  //
+  //     if(err){
+  //       AppDispatcher.dispatch({
+  //         actionType: ExpeditionConstants.EXPEDITION_DEREGISTER_FAILED,
+  //         err: err
+  //       });
+  //     }else{
+  //       AppDispatcher.dispatch({
+  //         actionType: ExpeditionConstants.EXPEDITION_DEREGISTER,
+  //         id: id
+  //       });
+  //     }
+  //   });
+  // }
 
   list(){
 
