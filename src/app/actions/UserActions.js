@@ -51,6 +51,7 @@ class UserActions {
     UserAPI.signup(username, email, password, (err, data)=>{
 
       if(err){
+        console.log("signup failing", err);
         AppDispatcher.dispatch({
           actionType: UserConstants.USER_SIGNUP_FAILED,
           err: err

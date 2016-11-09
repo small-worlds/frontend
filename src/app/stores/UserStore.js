@@ -21,7 +21,7 @@ class UserStore extends EventEmitter {
       break;
 
       case UserConstants.USER_SIGNUP_FAILED:
-      this.emitChange({type: type, data: action.err});
+      this.emitChange({type: type, err: action.err});
       break;
 
       case UserConstants.USER_LOGIN:
@@ -30,7 +30,7 @@ class UserStore extends EventEmitter {
       break;
 
       case UserConstants.USER_LOGIN_FAILED:
-      this.emitChange({type: type, data: action.err});
+      this.emitChange({type: type, err: action.err});
       break;
 
       case UserConstants.USER_LOGOUT:
@@ -38,7 +38,7 @@ class UserStore extends EventEmitter {
       sessionStorage.clear();
       this.emitChange({type: type});
       break;
-      
+
     }
   }
 

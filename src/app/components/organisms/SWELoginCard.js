@@ -14,6 +14,9 @@ export default class SWELoginCard extends Component {
     this.state = {
       showSignup: false,
       form_rpassword_error: "",
+      form_password_error: "",
+      form_email_error: "",
+      form_username_error: "",
       form_email: "",
       form_username: "",
       form_password: "",
@@ -25,17 +28,18 @@ export default class SWELoginCard extends Component {
 
     switch(e.type){
 
-      case UserConstants.USER_SIGNUP_FAILED:
       case UserConstants.USER_LOGIN_FAILED:
-      this.setState({
-        form_rpassword_error: e.data.non_field_errors
-      });
+      this.onError(e.err);
       break;
 
       case UserConstants.USER_SIGNUP:
       if(this.state.showSignup){
         this.toggleView();
       }
+      break;
+
+      case UserConstants.USER_SIGNUP_FAILED:
+      this.onError(e.err);
       break;
 
     }
@@ -53,6 +57,9 @@ export default class SWELoginCard extends Component {
 
     this.setState({
       showSignup: !this.state.showSignup,
+      form_password_error: "",
+      form_email_error: "",
+      form_username_error: "",
       form_username: "",
       form_email: "",
       form_password: "",
@@ -91,7 +98,12 @@ export default class SWELoginCard extends Component {
 
   signup(){
     // TODO more validation etc
-    this.setState({form_rpassword_error: ""});
+    this.setState({
+      form_password_error: "",
+      form_email_error: "",
+      form_username_error: "",
+      form_rpassword_error: ""
+    });
 
     if(this.state.form_email.length === 0 || this.state.form_password.length === 0 || this.state.form_rpassword.length === 0){
       //TODO Focus on empty element
@@ -105,6 +117,34 @@ export default class SWELoginCard extends Component {
     }
 
     UserActions.signup(this.state.form_username, this.state.form_email, this.state.form_password);
+  }
+
+  onError(err){
+
+    var keys = Object.keys(err);
+    for(var i = 0; i < keys.length; i++){
+      var key = keys[i];
+      if(err.hasOwnProperty(key)){
+        this.addError(key, err[key]);
+      }
+    }
+  }
+
+  addError(key, err){
+
+    if(key === "non_field_errors"){
+      key = "password";
+    }
+
+    var buffer = "";
+
+    for(var i = 0; i < err.length; i++){
+      buffer += err[i] + "\n";
+    }
+
+    var state = {};
+    state["form_"+key+"_error"] = buffer;
+    this.setState(state);
   }
 
   render(){
@@ -124,6 +164,7 @@ export default class SWELoginCard extends Component {
                   <TextField
                     ref="username"
                     id="username"
+                    errorText={this.state.form_username_error}
                     hintText="Username"
                     value={this.state.form_username}
                     />
@@ -131,6 +172,7 @@ export default class SWELoginCard extends Component {
                   <TextField
                     ref="email"
                     id="email"
+                    errorText={this.state.form_email_error}
                     hintText="Email"
                     value={this.state.form_email}
                     />
@@ -138,6 +180,7 @@ export default class SWELoginCard extends Component {
                   <TextField
                     id="password"
                     hintText="Password"
+                    errorText={this.state.form_password_error}
                     type="password"
                     value={this.state.form_password}
                     />
@@ -156,6 +199,7 @@ export default class SWELoginCard extends Component {
                   <TextField
                     ref="username"
                     id="username"
+                    errorText={this.state.form_username_error}
                     hintText="Username"
                     value={this.state.form_username}
                     />
@@ -163,7 +207,7 @@ export default class SWELoginCard extends Component {
                   <TextField
                     id="password"
                     hintText="Password"
-                    errorText={this.state.form_rpassword_error}
+                    errorText={this.state.form_password_error}
                     type="password"
                     value={this.state.form_password}
                     />
