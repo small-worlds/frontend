@@ -3,6 +3,7 @@ import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
 import UserActions from "../../actions/UserActions";
 import UserStore from "../../stores/UserStore";
+import {browserHistory} from "react-router";
 
 export default class SWEDrawer extends Component {
 
@@ -10,7 +11,14 @@ export default class SWEDrawer extends Component {
     UserActions.logout();
   }
 
+  badgeGenerator(){
+    browserHistory.push("/badgegenerator/");
+  }
+
   render(){
+
+    var logged = UserStore.isLoggedIn();
+
     return (
       <Drawer
         open={this.props.drawerOpen}
@@ -18,15 +26,26 @@ export default class SWEDrawer extends Component {
         onRequestChange={(open) => this.props.onChange()}
         >
         {
-          UserStore.isLoggedIn() ?
+          logged ?
           (
-            <MenuItem onTouchTap={
-                (open) => {
-                  this.logout();
-                  this.props.onChange();
-                }
-              }>Log Out
-            </MenuItem>
+            <div>
+              <MenuItem onTouchTap={
+                  (open) => {
+                    this.logout();
+                    this.props.onChange();
+                  }
+                }>
+                Log Out
+              </MenuItem>
+              <MenuItem onTouchTap={
+                  (open) => {
+                    this.badgeGenerator();
+                    this.props.onChange();
+                  }
+                }>
+                Badge Designer
+              </MenuItem>
+            </div>
           ) : (
             null
           )
@@ -34,5 +53,4 @@ export default class SWEDrawer extends Component {
       </Drawer>
     );
   }
-
 }

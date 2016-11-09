@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 
-export default class SWEConfirm extends Component {
+export default class SWEDialog extends Component {
 
   constructor(){
     super();
@@ -32,7 +32,7 @@ export default class SWEConfirm extends Component {
         open={this.props.open}
         onRequestClose={this.handleClose}
         >
-        {this.props.text}
+        {this.props.children}
       </Dialog>
     );
   }

@@ -64,7 +64,6 @@ export default class SWEExpeditionRegisterCard extends Component {
     if(data === null){
       ExpeditionActions.get(id);
     }else{
-      console.log(data);
       this.setState(data);
     }
 
@@ -118,7 +117,7 @@ export default class SWEExpeditionRegisterCard extends Component {
   retract(){
     if(this.isRegistered()){
 
-      FlowActions.askConfirm({
+      FlowActions.dialog({
         title: "Are You Sure?",
         text: "Retract from Expedition: "+this.state.name,
         onConfirm: ()=>{

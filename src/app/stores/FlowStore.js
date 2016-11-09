@@ -16,7 +16,7 @@ class FlowStore extends EventEmitter {
     var type = action.actionType;
     switch(type){
 
-      case FlowConstants.FLOW_ASK_CONFIRM:
+      case FlowConstants.FLOW_DIALOG:
       this.emitChange({type: type, attr: action.attr});
       break;
 

@@ -6,7 +6,7 @@ import SWEAppBar from "./components/organisms/SWEAppBar";
 import SWEBottomNavigation from "./components/organisms/SWEBottomNavigation";
 import SWEDrawer from "./components/organisms/SWEDrawer";
 import SWEGrid from "./components/atoms/SWEGrid";
-import SWEConfirm from "./components/atoms/SWEConfirm";
+import SWEDialog from "./components/atoms/SWEDialog";
 import SWELoginCard from "./components/organisms/SWELoginCard";
 import UserStore from "./stores/UserStore";
 import UserConstants from "./constants/UserConstants";
@@ -26,15 +26,16 @@ class Main extends Component {
       authenticated: UserStore.isLoggedIn(),
       snackMessage: "",
       hasSnackMessage: false,
-      hasConfirm: false,
-      confirm_title: "",
-      confirm_text: "",
-      confirm_onConfirm: null,
-      confirm_onCancel: null
+      hasDialog: false,
+      dialog_title: "",
+      dialog_text: "",
+      dialog_onConfirm: null,
+      dialog_onCancel: null
     };
-    this.confirmQueue = [];
+    this.dialogQueue = [];
     this.counter = 0;
     this.timeout = null;
+    this.dialogChildren = null;
   }
 
   componentWillMount(){
@@ -53,8 +54,8 @@ class Main extends Component {
 
     switch(e.type){
 
-      case FlowConstants.FLOW_ASK_CONFIRM:
-      this.addConfirm(e.attr);
+      case FlowConstants.FLOW_DIALOG:
+      this.addDialog(e.attr);
       break;
 
     }
@@ -115,38 +116,41 @@ class Main extends Component {
     }
   }
 
-  addConfirm(attr){
-    if(this.state.confirmOpen){
-      this.confirmQueue.push(attr);
+  addDialog(attr){
+    if(this.state.dialogOpen){
+      this.dialogQueue.push(attr);
       return;
     }
-    this.showConfirm(attr);
+    this.showDialog(attr);
   }
 
-  nextConfirm(){
-    this.setState({hasConfirm: false});
-    if(this.confirmQueue.length !== 0){
-      this.showConfirm(this.confirmQueue.shift());
+  nextDialog(){
+    this.setState({hasDialog: false});
+    if(this.dialogQueue.length !== 0){
+      this.showDialog(this.dialogQueue.shift());
     }
   }
 
-  showConfirm(attr){
+  showDialog(attr){
+
+    this.dialogChildren = attr.children;
+
     this.setState({
-      hasConfirm: true,
-      confirm_onConfirm: ()=>{
+      hasDialog: true,
+      dialog_onConfirm: (e)=>{
         if(attr.onConfirm){
-          attr.onConfirm();
+          attr.onConfirm(e);
         }
-        this.nextConfirm();
+        this.nextDialog();
       },
-      confirm_onCancel: ()=>{
+      dialog_onCancel: ()=>{
         if(attr.onCancel){
           attr.onCancel();
         }
-        this.nextConfirm();
+        this.nextDialog();
       },
-      confirm_text: attr.text,
-      confirm_title: attr.title
+      dialog_text: attr.text,
+      dialog_title: attr.title
     });
   }
 
@@ -189,13 +193,15 @@ class Main extends Component {
               )
             }
           </SWEGrid>
-          <SWEConfirm
-            title={this.state.confirm_title}
-            text={this.state.confirm_text}
-            onConfirm={this.state.confirm_onConfirm}
-            onCancel={this.state.confirm_onCancel}
-            open={this.state.hasConfirm}
-            />
+          <SWEDialog
+            title={this.state.dialog_title}
+            text={this.state.dialog_text}
+            onConfirm={this.state.dialog_onConfirm}
+            onCancel={this.state.dialog_onCancel}
+            open={this.state.hasDialog}
+            >
+            {this.dialogChildren}
+          </SWEDialog>
           <Snackbar
             open={this.state.hasSnackMessage}
             message={this.state.snackMessage}

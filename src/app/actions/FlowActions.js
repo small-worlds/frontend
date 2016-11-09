@@ -9,11 +9,10 @@ class FlowActions {
 
   }
 
-
-  askConfirm(attr){
+  dialog(attr){
     AppDispatcher.dispatch({
-      actionType: FlowConstants.FLOW_ASK_CONFIRM,
-      attr
+      actionType: FlowConstants.FLOW_DIALOG,
+      attr: attr
     });
   }
 

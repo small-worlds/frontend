@@ -75,8 +75,12 @@ body {
   clear: both;
 }
 
-
-
+#badge {
+  margin: 1em;
+  position: relative;
+  max-width: 42em;
+  height: auto;
+}
 
 @media screen and (min-width: 100px) {
   .articlecard {
