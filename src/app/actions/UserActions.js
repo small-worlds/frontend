@@ -52,12 +52,12 @@ class UserActions {
 
       if(err){
         AppDispatcher.dispatch({
-          actionType: UserConstants.USER_LOGIN_FAILED,
+          actionType: UserConstants.USER_SIGNUP_FAILED,
           err: err
         });
       }else{
         AppDispatcher.dispatch({
-          actionType: UserConstants.USER_LOGIN,
+          actionType: UserConstants.USER_SIGNUP,
           data: data
         });
       }

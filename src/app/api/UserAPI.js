@@ -19,9 +19,8 @@ class UserAPI {
       onSuccess: (data)=>{
         console.log(data);
         var json = JSON.parse(data);
-
-        if(json.token){
-          call(null, json.token);
+        if(json.id){
+          call(null, json.id);
         }else{
           call(json, null);
         }

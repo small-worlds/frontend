@@ -76,6 +76,10 @@ class Main extends Component {
       this.setSnackMessage("Signed up, check your inbox for the Activation Email!");
       break;
 
+      case UserConstants.USER_SIGNUP_FAILED:
+      this.setSnackMessage("Error Signing Up!");
+      break;
+
     }
   }
 

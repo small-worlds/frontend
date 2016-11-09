@@ -11,23 +11,17 @@ export default class SWELoginCard extends Component {
 
   constructor(){
     super();
-    this.valid = true;
-  }
-
-  state = {
-    showSignup: false,
-    form_rpassword_error: "",
-    form_email: "",
-    form_username: "",
-    form_password: "",
-    form_rpassword: ""
+    this.state = {
+      showSignup: false,
+      form_rpassword_error: "",
+      form_email: "",
+      form_username: "",
+      form_password: "",
+      form_rpassword: ""
+    };
   }
 
   onData = (e)=>{
-
-    if(!this.valid){
-      return;
-    }
 
     switch(e.type){
 
@@ -48,7 +42,6 @@ export default class SWELoginCard extends Component {
   }
 
   componentWillMount(){
-    this.valid = false;
     UserStore.addChangeListener(this.onData);
   }
 
