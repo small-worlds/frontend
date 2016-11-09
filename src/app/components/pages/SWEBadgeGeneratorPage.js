@@ -45,7 +45,6 @@ export default class SWEBadgeGeneratorPage extends Component {
   }
 
   changeListener(e){
-    console.log("wut");
     var data = {};
     data[e.target.id] = e.target.value;
     this.setState(data);

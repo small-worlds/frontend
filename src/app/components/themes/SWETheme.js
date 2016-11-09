@@ -3,7 +3,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import lightBaseTheme from "material-ui/styles/baseThemes/lightBaseTheme";
 import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
 
-console.log(darkBaseTheme.palette);
+//console.log(darkBaseTheme.palette);
 var palette = darkBaseTheme.palette;
 
 // BACKGROUND COLORS //
