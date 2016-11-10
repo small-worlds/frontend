@@ -30,7 +30,7 @@ export default class SWEActivateCard extends Component {
   render() {
     return (
       <Card className="articlecard">
-        <CardHeader title="SWE Confirm Actication" subtitle="Welcome!" avatar="/assets/images/logo.png"/>
+        <CardHeader title="SWE Confirm Activation" subtitle="Welcome!" avatar="/assets/images/logo.png"/>
         <CardText>
           Activate account?
         </CardText>
