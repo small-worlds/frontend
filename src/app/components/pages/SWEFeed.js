@@ -60,7 +60,7 @@ export default class SWEFeed extends Component {
                 minJump={entry.min_jump}
                 description={entry.description}
                 isMovie={entry.teaser_is_movie}
-                image={entry.teaser_image}
+                image={entry.teaser_image_url}
                 />
             );
           })
