@@ -218,7 +218,7 @@ export default class SWELoginCard extends Component {
           <CardActions>
             <FlatButton
               label={this.state.showSignup ? "Sign Up" : "Log In"}
-              onSubmit={()=>this.submit()}
+              onTouchTap={()=>this.submit()}
               />
             <FlatButton
               label={this.state.showSignup ? "Cancel" : "Sign Up"}
