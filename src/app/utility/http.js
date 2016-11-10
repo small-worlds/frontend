@@ -1,6 +1,6 @@
 import UserStore from "../stores/UserStore";
 
-const SERVER_URL = "https://api.smallworlds.io";
+const SERVER_URL = "https://api.smallworlds.io/api";
 
 
 function http(attr){
