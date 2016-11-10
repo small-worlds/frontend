@@ -67,9 +67,9 @@ export default class SWEExpeditionPage extends Component {
           >
           {
             this.state.teaser_is_movie ? (
-              <video src={this.state.teaser_image} autoPlay loop/>
+              <video src={this.state.teaser_image_url} autoPlay loop/>
             ) : (
-              <img src={this.state.teaser_image} />
+              <img src={this.state.teaser_image_url} />
             )
           }
         </CardMedia>
