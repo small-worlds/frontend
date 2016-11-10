@@ -28,8 +28,8 @@ export default class SWEExpeditionCard extends Component {
           >
           {
             this.props.isMovie ?
-            (<video src={this.props.image} autoPlay loop/>) :
-            (<img src={this.props.image}/>)
+            (<video src={this.props.teaser_image_url} autoPlay loop/>) :
+            (<img src={this.props.teaser_image_url}/>)
           }
         </CardMedia>
         <CardText>
