@@ -54,9 +54,11 @@ export default class SWEExpeditionPage extends Component {
 
     return (
       <TableRow>
+        <TableRowColumn style={STYLE}>{this.state.number}</TableRowColumn>
         <TableRowColumn style={STYLE}>{this.state.name}</TableRowColumn>
         <TableRowColumn style={STYLE}>{this.state.system}</TableRowColumn>
         <TableRowColumn style={STYLE}>{this.state.planet}</TableRowColumn>
+        <TableRowColumn style={STYLE}>{this.state.gravity}</TableRowColumn>
         <TableRowColumn style={STYLE}>{this.state.latitude+", "+this.state.longitude}</TableRowColumn>
       </TableRow>
     );
