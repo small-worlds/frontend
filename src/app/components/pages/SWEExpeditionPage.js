@@ -83,8 +83,10 @@ export default class SWEExpeditionPage extends Component {
             >
             <TableRow>
               <TableHeaderColumn>Waypoint</TableHeaderColumn>
+              <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>System</TableHeaderColumn>
               <TableHeaderColumn>Planet</TableHeaderColumn>
+              <TableHeaderColumn>Gravity</TableHeaderColumn>
               <TableHeaderColumn>Coords</TableHeaderColumn>
             </TableRow>
           </TableHeader>
