@@ -147,7 +147,7 @@ export default class SWEExpeditionRegisterCard extends Component {
             <TextField
               id="name"
               value={this.state.ship_name}
-              hintText="Name"
+              hintText="Ship Name"
               type="text"
               />
             <TextField
